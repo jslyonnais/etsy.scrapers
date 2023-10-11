@@ -1,2 +1,0 @@
-beautifulsoup4==4.x.x
-requests==2.x.x
