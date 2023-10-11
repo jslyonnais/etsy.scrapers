@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Etsy Scraper</title>
+  </head>
+  <body>
+    <label for="url">Enter Etsy Shop URL:</label>
+    <input type="url" id="url" required />
+    <button onclick="generateCSV()">Get CSV</button>
+
+    <script>
+      function generateCSV() {
+        const apiUrl = '/api/scrape';
+        const url = document.getElementById('url').value;
+
+        fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ url: url }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const blob = new Blob([data.csv], { type: 'text/csv' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = data.filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          })
+          .catch((error) => console.error('Error:', error));
+      }
+    </script>
+  </body>
+</html>
