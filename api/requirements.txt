@@ -1,2 +1,2 @@
-beautifulsoup4==4.x.x
-requests==2.x.x
+beautifulsoup4==4.10.0
+requests==2.26.0
