@@ -7,11 +7,16 @@
   </head>
   <body>
     <label for="url">Enter Etsy Shop URL:</label>
-    <input type="url" id="url" required />
+    <input
+      type="url"
+      id="url"
+      value="https://www.etsy.com/ca/shop/SasquatchIronWorks"
+      required
+    />
     <button onclick="generateCSV()">Get CSV</button>
 
     <script>
-      function generateCSV() {
+      async function generateCSV() {
         const apiUrl = '/api/scrape';
         const url = document.getElementById('url').value;
 
@@ -24,13 +29,15 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            const blob = new Blob([data.csv], { type: 'text/csv' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = data.filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            // const blob = new Blob([data.csv], { type: 'text/csv' });
+            // const link = document.createElement('a');
+            // link.href = URL.createObjectURL(blob);
+            // link.download = data.filename;
+            // document.body.appendChild(link);
+            // link.click();
+            // document.body.removeChild(link);
+
+            console.log(data);
           })
           .catch((error) => console.error('Error:', error));
       }
